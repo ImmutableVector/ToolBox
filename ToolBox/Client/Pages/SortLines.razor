@@ -1,0 +1,38 @@
+﻿@page "/SortLines"
+
+<div class="row">
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-header">
+                List
+            </div>
+            <div class="card-body">
+               <textarea class="form-control" @bind-value="Body" @bind-value:event="oninput"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-6">
+        <div class="card mt-4">
+            <div class="card-header">
+                Sorted List
+            </div>
+            <div class="card-body">
+                @foreach (var line in Preview)
+                {
+                    @line
+                    <br />
+                }
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@code {
+    public string Body { get; set; } = string.Empty;
+    public List<string> Preview => Body
+        .Split(new string[] { "\n", "\r\n" }, StringSplitOptions.RemoveEmptyEntries)
+        .OrderBy(x => x)
+        .ToList();
+}
